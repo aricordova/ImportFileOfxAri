@@ -131,9 +131,9 @@ namespace ImportFileOfxAri.Controllers
 
             }).ToList();
 
-
+            //remover registros repetidos e ordernar por data
             list = list.Select(i => new { i.DataTarnsacao, i.Tipo, i.Valor, i.Descricao })
-               .Distinct().Select(x => new Import { DataTarnsacao = x.DataTarnsacao, Tipo = x.Tipo, Valor = x.Valor, Descricao = x.Descricao }).ToList();
+               .Distinct().Select(x => new Import { DataTarnsacao = x.DataTarnsacao, Tipo = x.Tipo, Valor = x.Valor, Descricao = x.Descricao }).OrderBy(d => d.DataTarnsacao).ToList();
 
 
 

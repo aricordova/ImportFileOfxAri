@@ -2,9 +2,10 @@
 
 namespace ImportFileOfxAri.Models
 {
-   
+
     public class Import
     {
+        public int Id { get; set; }
         public string Nome { get; set; }
 
         public string DataTarnsacao { get; set; }

@@ -84,13 +84,84 @@
                 <td>@import.Tipo</td>
                 <td>@import.Valor</td>
                 <td>@import.Descricao</td>
-
+                <td>
+                    <button value="@import.Id" asp-route-id="@import.Id" data-toggle="modal" data-target="#myModal" />Obs
+                </td>
             </tr>
 
 
         }
     </table>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLabel">Observações</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type='hidden' id="extratoId" />
+                    <div>
+                        <label class="txt-color-main">Data Transação:</label> <span id="lblData"></span>
+                    </div>
+                    <div>
+                        <label class="txt-color-main">Tipo Transação:</label> <span id="lblTipo"></span>
+                    </div>
+                    <div>
+                        <label class="txt-color-main">Valor:</label> <span id="lblValor"></span>
+                    </div>
+                    <div>
+                        <label class="txt-color-main">Descrição:</label> <span id="lblDesc"></span>
+                    </div>
+                    <div>
+                        <label class="txt-color-main">Observação:</label>
+                        <textarea class="form-control-range" cols="40" rows="5" id="txtObs"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-md-12">
+                        <input value="Salvar" type="submit"/>
+                        <input type="button"  value="Fechar" data-dismiss="modal" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 </body>
 </html>
 
 
+<script type="text/javascript">
+
+ 
+    $(".btnSalvar").click(function () {
+
+    id = $("#extratoId").val();
+    txtObs = $("#txtObservacao").val();
+
+    $.ajax({
+    type: "POST",
+    url: "@Url.Action("SalvarExtrato")",
+    dataType: "text",
+    data: { id: id, observacao: txtObs },
+    success: function (response) {
+    alert("Salvo com sucesso");
+    $("#myModal .close").click()
+    },
+    error: function (req, status, error) {
+
+    alert("Erro :( Houve algum erro ao salvar.");
+    }
+    });
+    });
+
+
+</script>
